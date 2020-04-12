@@ -1,5 +1,6 @@
 import requests
 import os
+import pyfiglet
 
 APIKEY = os.environ['APIKEY']
 
@@ -10,6 +11,8 @@ def kelvin_to_fahrenheit(temp):
 
 
 def get_current_weather():
+    header = pyfiglet.figlet_format("Weather Report")
+    print(header)
     good_zip = False
     while not good_zip:
         try:
@@ -23,9 +26,10 @@ def get_current_weather():
             continue
     response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?zip={zip_code},us&appid={APIKEY}")
     data = response.json()
+    description = data['weather'][0]['description'].capitalize()
     temp = kelvin_to_fahrenheit(data['main']['temp'])
     city_name = data['name']
-    return print(f"The current temperature in {city_name} is {round(temp)}\N{DEGREE SIGN}F")
+    return print(f"{description} and {round(temp)}\N{DEGREE SIGN}F in {city_name}.")
 
 
 get_current_weather()
