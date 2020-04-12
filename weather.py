@@ -2,8 +2,6 @@ import requests
 import os
 import pyfiglet
 
-APIKEY = os.environ['APIKEY']
-
 
 def kelvin_to_fahrenheit(temp):
     new_temp = 9/5 * (temp - 273) + 32
@@ -11,6 +9,7 @@ def kelvin_to_fahrenheit(temp):
 
 
 def get_current_weather():
+    APIKEY = os.environ['APIKEY']
     header = pyfiglet.figlet_format("Weather Report")
     print(header)
     good_zip = False
